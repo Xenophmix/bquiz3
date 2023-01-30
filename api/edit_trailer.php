@@ -24,4 +24,4 @@ foreach ($_POST['id'] as $key => $id) {
     }
 }
 
-// to("../back.php?do=trailer");
+to("../back.php?do=trailer");
