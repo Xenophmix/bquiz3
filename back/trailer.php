@@ -13,6 +13,11 @@
 
 
             <?php foreach ($ts as $key => $t) : ?>
+                <?php
+                $prev = ($key == 0) ? $t['id'] : $ts[$key - 1]['id'];
+                $next = ($key == count($ts) - 1) ? $t['id'] : $ts[$key + 1]['id'];
+                ?>
+
 
                 <div style="display:flex;align-items:center;justify-content:center;text-align:center">
                     <div style='width:25%;margin:0 1px;padding:2px;'>
@@ -23,8 +28,8 @@
                         <input type="hidden" name="id[]" value="<?= $t['id']; ?>">
                     </div>
                     <div style='width:25%;margin:0 1px'>
-                        <input type="button" value="往上">
-                        <input type="button" value="往下">
+                        <input type="button" value="往上" onclick="sw(<?= $t['id'] ?>,<?= $prev ?>)">
+                        <input type="button" value="往下" onclick="sw(<?= $t['id'] ?>,<?= $next ?>)">
                     </div>
                     <div style='width:25%;margin:0 1px'>
                         <input type="checkbox" name="sh[]" value="<?= $t['id']; ?>" <?= ($t['sh'] == 1) ? 'checked ' : '' ?>>顯示&nbsp;
@@ -63,3 +68,18 @@
     </div>
 
 </form>
+
+<script>
+    function sw(id1, id2) {
+
+        $.post("./api/sw.php", {
+            id1,
+            id2
+        }, () => {
+            location.reload();
+        })
+
+
+
+    }
+</script>
