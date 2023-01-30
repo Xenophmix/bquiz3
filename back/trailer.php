@@ -8,36 +8,36 @@
         <div style='width:25%;background:#eee;margin:0 1px'>操作</div>
     </div>
     <form action="./api/edit_trailer.php" method="post">
-        <div>
-            <?php
-            $ts = $Trailer->all(" ORDER BY `rank`");
+        <div style="height:210px;overflow:auto">
+            <?php $ts = $Trailer->all(" ORDER BY `rank`"); ?>
 
-            foreach ($ts as $key => $t) {
-            ?>
-                <div style="display:flex;align-items:center;justify-contet:center;text-align:center">
+
+            <?php foreach ($ts as $key => $t) : ?>
+
+                <div style="display:flex;align-items:center;justify-content:center;text-align:center">
                     <div style='width:25%;margin:0 1px;padding:2px;'>
                         <img src="./upload/<?= $t['img']; ?>" style="width:100px">
                     </div>
                     <div style='width:25%;margin:0 1px'>
                         <input type="text" name="name[]" value="<?= $t['name']; ?>">
+                        <input type="hidden" name="id[]" value="<?= $t['id']; ?>">
                     </div>
                     <div style='width:25%;margin:0 1px'>
                         <input type="button" value="往上">
                         <input type="button" value="往下">
                     </div>
                     <div style='width:25%;margin:0 1px'>
-                        <input type="checkbox" name="sh[]" value="<?= $t['id']; ?>">顯示&nbsp;
+                        <input type="checkbox" name="sh[]" value="<?= $t['id']; ?>" <?= ($t['sh'] == 1) ? 'checked ' : '' ?>>顯示&nbsp;
                         <input type="checkbox" name="del[]" value="<?= $t['id']; ?>">刪除&nbsp;
                         <select name="ani[]">
-                            <option value="1">淡入淡出</option>
-                            <option value="2">滑入滑出</option>
-                            <option value="3">縮放</option>
+                            <option value="1" <?= ($t['ani'] == 1) ? 'selected ' : '' ?>>淡入淡出</option>
+                            <option value="2" <?= ($t['ani'] == 2) ? 'selected ' : '' ?>>滑入滑出</option>
+                            <option value="3" <?= ($t['ani'] == 3) ? 'selected ' : '' ?>>縮放</option>
                         </select>
+
                     </div>
                 </div>
-            <?php
-            }
-            ?>
+            <?php endforeach ?>
 
         </div>
         <div class="ct">
