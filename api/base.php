@@ -154,6 +154,5 @@ function q($sql){
 }
 
 
-$Trailer=new DB("trailer");
-
-?>
+$Trailer = new DB("trailer");
+$Movie = new DB("movie");
