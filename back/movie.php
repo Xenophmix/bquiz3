@@ -12,7 +12,7 @@ foreach ($rows as $key => $row) :
 
 
 ?>
-  <div style="display: flex;width:95%;margin:2px auto;padding:2px">
+  <div style="display: flex;width:95%;margin:2px auto;padding:2px;overflow:auto;">
 
 
     <div style="width: 15%;">

@@ -5,7 +5,7 @@ $ondate = explode('-',$row['ondate']);
 ?>
 
 
-<form action="./api/edit_movie.php" method="POST" enctype="multipart/form-data">
+<form action="./api/save_movie.php" method="POST" enctype="multipart/form-data">
 
   <div style="width:90%;margin:auto">
     <div style="display:flex;">
