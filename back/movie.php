@@ -6,8 +6,10 @@
 
 $rows = $Movie->all(" order by `rank`");
 foreach ($rows as $key => $row) :
-  $prev = ($key == 0) ? $row['id'] : $row[$key - 1]['id'];
-  $next = ($key == count($rows) - 1) ? $row['id'] : $rows[$key - 1]['id'];
+
+  $prev = ($key == 0) ? $row['id'] : $rows[$key - 1]['id'];
+  $next = ($key == count($rows) - 1) ? $row['id'] : $rows[$key + 1]['id'];
+
 
 ?>
   <div style="display: flex;width:95%;margin:2px auto;padding:2px">
