@@ -1,48 +1,71 @@
 <style>
-#poster{
-  width: 420px;
-  height: 400px;
-  position: relative;
-}
+  #poster {
+    width: 420px;
+    height: 400px;
+    position: relative;
+  }
 
-.pos{
-  width: 210px;
-  height: 280px;
-  background-color: white;
-  margin: auto;
-  position: relative;
-}
+  .pos {
+    width: 210px;
+    height: 280px;
+    /* background-color: white; */
+    margin-left: 105px;
+    position: absolute;
+  }
 
-.controls{
-  width: 420px;
-  height: 110px;
-  background-color: lightblue;
-  margin: 10px auto 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-}
-.left,.right{
-  /* width: 40px;
-  height: 40px; */
-  /* background-color: red; */
-}
-.left,.right{
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;
-}
-.left{
-  border-right: 20px solid green;
-}
-.right{
-  border-left: 20px solid blue;
-}
+  .pos img {
+    width: 100%;
+    height: 260px;
+  }
 
-.btns{
-  width: 320px;
-  background-color: green;
-  height: 100px;
-}
+  .controls {
+    width: 420px;
+    height: 110px;
+    /* background-color: lightblue; */
+    margin: 10px auto 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    position: absolute;
+    bottom: 0;
+  }
+
+
+  .left,
+  .right {
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+  }
+
+  .left {
+    border-right: 20px solid blue;
+  }
+
+  .right {
+    border-left: 20px solid blue;
+  }
+
+  .btns {
+    width: 320px;
+    /* background-color: green; */
+    height: 100px;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .btn {
+    width: 80px;
+    font-size: 12px;
+    text-align: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    padding: 3px;
+  }
+
+  .btn img {
+    width: 100%;
+    height: 80%;
+  }
 </style>
 
 <div class="half" style="vertical-align:top;">
@@ -50,14 +73,29 @@
   <div class="rb tab" style="width:95%;">
     <div id="poster">
       <div class="lists" style="margin:auto">
-        <div class="pos">
-          <img src="" alt="">
-        </div>
-        
+        <?php
+        $posters = $Trailer->all(['sh' => 1]);
+        foreach ($posters as $poster) :
+        ?>
+          <div class="pos">
+            <img src="./upload/<?= $poster['img'] ?>" alt="">
+            <div><?= $poster['name'] ?></div>
+          </div>
+        <?php endforeach ?>
       </div>
       <div class="controls">
         <div class="left"></div>
-        <div class="btns"></div>
+        <div class="btns">
+
+          <?php
+          foreach ($posters as $poster) :
+          ?>
+            <div class="btn">
+              <img src="./upload/<?= $poster['img']; ?>" alt="">
+              <div><?= $poster['name']; ?></div>
+            </div>
+          <?php endforeach ?>
+        </div>
         <div class="right"></div>
       </div>
     </div>
