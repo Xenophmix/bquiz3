@@ -9,8 +9,10 @@
     width: 210px;
     height: 280px;
     /* background-color: white; */
-    margin-left: 105px; /*推算大小往左推，使海報得以維持在中間*/
+    margin-left: 105px;
+    /*推算大小往左推，使海報得以維持在中間*/
     position: absolute;
+    display: none;
   }
 
   .pos img {
@@ -50,16 +52,20 @@
     /* background-color: green; */
     height: 100px;
     display: flex;
-    overflow: hidden; /*超過寬度的自動隱藏*/
+    overflow: hidden;
+    /*超過寬度的自動隱藏*/
   }
 
   .btn {
     width: 80px;
     font-size: 12px;
     text-align: center;
-    flex-shrink: 0; /*讓子元素維持自己的寬度*/
-    box-sizing: border-box; /*讓元件總寬度不受影響*/
+    flex-shrink: 0;
+    /*讓子元素維持自己的寬度*/
+    box-sizing: border-box;
+    /*讓元件總寬度不受影響*/
     padding: 3px;
+    position: relative;
   }
 
   .btn img {
@@ -101,6 +107,31 @@
     </div>
   </div>
 </div>
+
+
+<script>
+  $('.pos').eq(0).show()
+
+  let btns = $(".btn").length;
+  let p = 0
+
+
+  $(".right,.left").on("click", function() {
+
+
+    $(this).hasClass('left') ? p > 0 && p-- : (btns - 4 >= p + 1 && p <= btns) && p++;
+
+
+    $('.btn').animate({
+      right: 80 * p
+    },1000,console.log('worked'))
+  })
+
+
+ 
+</script>
+
+
 <div class="half">
   <h1>院線片清單</h1>
   <div class="rb tab" style="width:95%;">
