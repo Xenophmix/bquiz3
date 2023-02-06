@@ -117,7 +117,7 @@
 </div>
 
 
-<script>
+<!-- <script>
   $('.pos').eq(0).show()
 
   let btns = $(".btn").length;
@@ -145,40 +145,88 @@
 
   function ani(next) {
     now = $(".pos:visible").index();
-
-    if (typeof(next) == 'undefined')
-      next = (now + 1 <= $(".pos").length - 1) ? now + 1 : 0;
-
+    next = next || (now + 1 <= $(".pos").length - 1) ? now + 1 : 0;
     let AniType = $('.pos').eq(next).data('ani');
-    //console.log("now=>"+now+','+"next=>"+next+","+"ani=>"+AniType);
+    let $currentPos = $(".pos").eq(now);
+    let $nextPos = $(".pos").eq(next);
+
     switch (AniType) {
       case 1:
-        $(".pos").eq(now).fadeOut(1000, () => {
-          $(".pos").eq(next).fadeIn(1000);
+        $currentPos.fadeOut(1000, () => {
+          $nextPos.fadeIn(1000);
         });
         break;
       case 2:
-        $(".pos").eq(now).slideUp(1000, () => {
-          $(".pos").eq(next).slideDown(1000);
+        $currentPos.slideUp(1000, () => {
+          $nextPos.slideDown(1000);
         });
         break;
       case 3:
-        $(".pos").eq(now).hide(1000, () => {
-          $(".pos").eq(next).show(1000);
+        $currentPos.hide(1000, () => {
+          $nextPos.show(1000);
         });
         break;
     }
   }
 
   $('.btns').hover(
-    function() {
-      clearInterval(counter)
-    },
-    function() {
-      counter = setInterval(() => {
-        ani();
-      }, 3000)
-    })
+    () => clearInterval(counter),
+    () => counter = setInterval(ani, 3000)
+  );
+</script> -->
+<script>
+  let pos = $('.pos');
+  let btns = $(".btn").length;
+  let p = 0,
+    now = 0;
+  let counter;
+  let clickable = true;
+
+  pos.eq(0).show();
+
+  $(".right, .left").on("click", function() {
+    if (!clickable) return;
+    clickable = false;
+    setTimeout(() => {
+      clickable = true;
+    }, 1000);
+
+    p += $(this).hasClass('left') ? (p > 0 ? -1 : 0) : (btns - 4 >= p + 1 && p <= btns) ? 1 : 0;
+    $('.btn').animate({
+      right: 80 * p
+    }, 1000);
+  });
+
+  counter = setInterval(ani, 3000);
+
+  $('.btn').on('click', function() {
+    ani($(this).index());
+  });
+
+  function ani(next) {
+    now = pos.filter(':visible').index();
+    next = typeof next !== 'undefined' ? next : (now + 1 <= pos.length - 1) ? now + 1 : 0;
+    let AniType = pos.eq(next).data('ani');
+    let $currentPos = pos.eq(now),
+      $nextPos = pos.eq(next);
+
+    switch (AniType) {
+      case 1:
+        $currentPos.fadeOut(1000, () => $nextPos.fadeIn(1000));
+        break;
+      case 2:
+        $currentPos.slideUp(1000, () => $nextPos.slideDown(1000));
+        break;
+      case 3:
+        $currentPos.hide(1000, () => $nextPos.show(1000));
+        break;
+    }
+  }
+
+  $('.btns').hover(
+    () => clearInterval(counter),
+    () => counter = setInterval(ani, 3000)
+  );
 </script>
 
 
