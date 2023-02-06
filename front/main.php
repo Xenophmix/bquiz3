@@ -5,14 +5,22 @@
     position: relative;
   }
 
+  .lists {
+    width: 210px;
+    height: 280px;
+    position: relative;
+    margin: auto;
+    overflow: hidden;
+  }
+
   .pos {
     width: 210px;
     height: 280px;
-    /* background-color: white; */
-    margin-left: 105px;
     /*推算大小往左推，使海報得以維持在中間*/
+    /* margin-left: 105px; */
     position: absolute;
     display: none;
+    text-align: center;
   }
 
   .pos img {
@@ -80,10 +88,10 @@
     <div id="poster">
       <div class="lists" style="margin:auto">
         <?php
-        $posters = $Trailer->all(['sh' => 1]);
+        $posters = $Trailer->all(['sh' => 1], " order by rank");
         foreach ($posters as $poster) :
         ?>
-          <div class="pos">
+          <div class="pos" data-ani="<?= $poster['ani'] ?>">
             <img src="./upload/<?= $poster['img'] ?>" alt="">
             <div><?= $poster['name'] ?></div>
           </div>
@@ -115,20 +123,62 @@
   let btns = $(".btn").length;
   let p = 0
 
-
   $(".right,.left").on("click", function() {
-
 
     $(this).hasClass('left') ? p > 0 && p-- : (btns - 4 >= p + 1 && p <= btns) && p++;
 
-
     $('.btn').animate({
       right: 80 * p
-    },1000,console.log('worked'))
+    }, 1000, console.log('worked'))
+
   })
 
+  let now = 0;
+  let counter = setInterval(() => {
+    ani();
+  }, 3000)
 
- 
+  $('.btn').on('click', function() {
+    let _this = $(this).index();
+    ani(_this);
+  })
+
+  function ani(next) {
+    now = $(".pos:visible").index();
+
+    if (typeof(next) == 'undefined')
+      next = (now + 1 <= $(".pos").length - 1) ? now + 1 : 0;
+
+    let AniType = $('.pos').eq(next).data('ani');
+    //console.log("now=>"+now+','+"next=>"+next+","+"ani=>"+AniType);
+    switch (AniType) {
+      case 1:
+        $(".pos").eq(now).fadeOut(1000, () => {
+          $(".pos").eq(next).fadeIn(1000);
+        });
+        break;
+      case 2:
+        $(".pos").eq(now).slideUp(1000, () => {
+          $(".pos").eq(next).slideDown(1000);
+        });
+        break;
+      case 3:
+        $(".pos").eq(now).hide(1000, () => {
+          $(".pos").eq(next).show(1000);
+        });
+        break;
+    }
+  }
+
+  $('.btns').hover(
+    function() {
+      clearInterval(counter)
+    },
+    function() {
+      counter = setInterval(() => {
+        ani();
+      }, 3000)
+    })
 </script>
 
 
