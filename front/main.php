@@ -9,7 +9,7 @@
     width: 210px;
     height: 280px;
     /* background-color: white; */
-    margin-left: 105px;
+    margin-left: 105px; /*推算大小往左推，使海報得以維持在中間*/
     position: absolute;
   }
 
@@ -50,15 +50,15 @@
     /* background-color: green; */
     height: 100px;
     display: flex;
-    overflow: hidden;
+    overflow: hidden; /*超過寬度的自動隱藏*/
   }
 
   .btn {
     width: 80px;
     font-size: 12px;
     text-align: center;
-    flex-shrink: 0;
-    box-sizing: border-box;
+    flex-shrink: 0; /*讓子元素維持自己的寬度*/
+    box-sizing: border-box; /*讓元件總寬度不受影響*/
     padding: 3px;
   }
 
