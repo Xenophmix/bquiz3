@@ -10,8 +10,9 @@ $duration = 3 - (($today - strtotime($ondate)) / (60 * 60 * 24));
 
 for ($i = 0; $i < $duration; $i++) {
 
-    $date = date("Y-m-d", strtotime("+$i days"));
-    echo "<option value='$date'>$date</option>";
+    $date=date("Y-m-d",strtotime("+$i days"));
+    $str=date("m月d日 l",strtotime("+$i days"));
+    echo "<option value='$date'>$str</option>";
 }
 
 

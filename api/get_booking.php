@@ -65,7 +65,7 @@ $bookings = [];
       echo floor(($i / 5) + 1) . "排" . ($i % 5 + 1) . "號";
       echo "</div>";
       if (!in_array($i, $bookings)) {
-        echo "<input type='checkbox'value='$i'>";
+        echo "<input type='checkbox'value='$i' class='chk'>";
       }
       echo "</div>";
     }
@@ -81,6 +81,49 @@ $bookings = [];
   <div>您已經勾選<span id='tickets'></span>張票，最多可以購買四張票</div>
   <div class="ct">
     <button onclick="$('#orderForm,#booking').toggle();$('#booking').html('')">上一步</button>
-    <button>確定</button>
+    <button onclick="checkout()">確定</button>
   </div>
 </div>
+
+<script>
+  let seats = [];
+  let num = ['一', '二', '三', '四', ]
+  $(".chk").on("change", function() {
+
+    if ($(this).prop('checked')) {
+
+
+      if (seats.length >= 4) {
+        alert("最多只能購買四張票")
+        $(this).prop('checked', false)
+      } else {
+        seats.push($(this).val())
+      }
+      console.log(seats)
+
+
+
+    } else {
+
+      $(this).val()
+      seats.splice(seats.indexOf($(this).val()), 1)
+
+    }
+
+    $('#tickets').text(num[seats.length - 1])
+
+  })
+
+  function checkout() {
+    $.post("./api/order.php", {
+        seats,
+        movie: $("#movie option:selected").text(),
+        date: $("#day option:selected").val(),
+        session: $("#session option:selected").val()
+      },
+      (result) => {
+        console.log(result)
+      }
+    )
+  }
+</script>
