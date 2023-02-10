@@ -16,7 +16,7 @@
   <tr>
     <td>場次:</td>
     <td>
-      <select name="" id=""></select>
+      <select name="" id="session"></select>
     </td>
   </tr>
 </table>
@@ -27,8 +27,12 @@
 <script>
   getMovies();
 
-  $("#movie").on("change",function(){
+  $("#movie").on("change", function() {
     getDays($("#movie").val());
+  })
+
+  $("#day").on("change", function() {
+    getSessions($("#movie").val(), $("#day").val());
   })
 
   function getMovies() {
@@ -50,9 +54,21 @@
   }
 
   function getDays(id) {
-    $.get("./api/get_days.php", {id}, (days) => {
+    $.get("./api/get_days.php", {
+      id
+    }, (days) => {
       // console.log(days);
       $("#day").html(days);
+      getSessions(id,$("#day").val())
+    })
+  }
+
+  function getSessions(id, date) {
+    $.get("./api/get_sessions.php", {
+      id,
+      date
+    }, (sessions) => {
+      $("#session").html(sessions);
     })
   }
 </script>
