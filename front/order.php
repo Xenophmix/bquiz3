@@ -92,4 +92,13 @@
       $("#session").html(sessions);
     })
   }
+
+  function getBooking() {
+    $.get("./api/get_booking.php", {}, (booking) => {
+      $("#booking").html(booking)
+      $("#selectMovie").text($("#movie option:selected").text())
+      $("#selectDate").text($("#day option:selected").text())
+      $("#selectSession").text($("#session option:selected").val())
+    })
+  }
 </script>
