@@ -23,17 +23,14 @@
     </tr>
   </table>
   <div class="ct">
-    <button onclick="$('#orderForm,#booking').toggle()">確定</button>
+    <button onclick="$('#orderForm,#booking').toggle();getBooking()">確定</button>
     <button>重置</button>
   </div>
 </div>
 
 <div id="booking" style="display: none;">
 
-  <div class="ct">
-    <button onclick="$('#orderForm,#booking').toggle();$('#booking').html('')">上一步</button>
-    <button>確定</button>
-  </div>
+
 
 
 </div>
