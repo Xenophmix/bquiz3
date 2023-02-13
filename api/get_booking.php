@@ -1,6 +1,20 @@
-<?php include_once "base.php";
+<?php
+include_once "base.php";
+
+
+$orders = $Order->all(['movie' => $_GET['movie'], 'date' => $_GET['date'], 'session' => $_GET['session']]);
+// dd($_GET);
+// dd($orders);
 
 $bookings = [];
+
+foreach ($orders as $order) {
+  // print_r($order);
+  $seats = unserialize($order['seats']);
+  // print_r($seats);
+  $bookings = array_merge($bookings, $seats);
+}
+// dd($bookings);
 
 ?>
 

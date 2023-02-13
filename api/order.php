@@ -6,6 +6,7 @@ $max_id = $Order->max('id') + 1;
 
 $_POST['num'] = date("Ymd") . sprintf("%04d", $max_id);
 
+$_POST['qt'] = count($_POST['seats']);
 // dd($_POST);
 sort($_POST['seats']);
 

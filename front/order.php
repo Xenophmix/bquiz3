@@ -91,11 +91,16 @@
   }
 
   function getBooking() {
-    $.get("./api/get_booking.php", {}, (booking) => {
+    let info = {
+      movie: $("#movie option:selected").text(),
+      date: $("#day option:selected").val(),
+      session: $("#session option:selected").val()
+    }
+    $.get("./api/get_booking.php", info, (booking) => {
       $("#booking").html(booking)
-      $("#selectMovie").text($("#movie option:selected").text())
-      $("#selectDate").text($("#day option:selected").text())
-      $("#selectSession").text($("#session option:selected").val())
+      $("#selectMovie").text(info.movie)
+      $("#selectDate").text(info.date)
+      $("#selectSession").text(info.session)
     })
   }
 </script>
