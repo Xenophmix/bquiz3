@@ -123,6 +123,7 @@ $bookings = [];
       },
       (result) => {
         console.log(result)
+        $("#booking").html(result)
       }
     )
   }
