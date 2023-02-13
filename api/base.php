@@ -76,7 +76,7 @@ class DB
             $sql = "insert into $this->table (`" . join("`,`", $cols) . "`) values('" . join("','", $array) . "')";
         }
 
-        //echo $sql;
+        // echo $sql;
 
         $this->pdo->exec($sql);
     }
@@ -177,3 +177,4 @@ function q($sql)
 
 $Trailer = new DB("trailer");
 $Movie = new DB("movie");
+$Order = new DB('orders');
